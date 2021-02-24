@@ -38,7 +38,7 @@ func generatePrime(n int64) (int64, int64) {
   p = rand.Int63n(n)
   q = rand.Int63n(n)
 
-  // 素数かつ(p != q)を判定
+  // p, q == Prime number && p != q
   for !checkPrime(p) || !checkPrime(q) {
     for p = rand.Int63n(n); !checkPrime(p) || p < 10; p = rand.Int63n(n) {}
     for q = rand.Int63n(n); !checkPrime(q) || q < 10; q = rand.Int63n(n) {}
@@ -65,10 +65,8 @@ func generateCommonMult(a int64, b int64) int64 {
 }
 
 // generateKey
-func generateKey(n int64, p int64, q int64) (int64, int64, int64) {
-  if p == -1 || q == -1 {
-    p, q = generatePrime(n)
-  }
+func generateKey(n int64) (int64, int64, int64) {
+  p, q := generatePrime(n)
   var N, E, D int64
   N = p * q
   L := generateCommonMult((p - 1), (q - 1))
